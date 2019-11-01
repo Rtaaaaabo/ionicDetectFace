@@ -1,5 +1,7 @@
 {
   "name": "ionicDetectFace",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
