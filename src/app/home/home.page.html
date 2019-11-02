@@ -12,6 +12,20 @@
   </div>
 
   <div>
+    <ion-list>
+      <ion-item
+        *ngFor="let file of mediaFiles"
+        tappable
+        (click)="playFile(file)"
+        text-wrap
+      >
+        {{ file.name }}
+        <p>{{ file.size / 1000 / 1000 | number }} MB</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div>
     <video controls autoplay #myvideo></video>
   </div>
 </ion-content>

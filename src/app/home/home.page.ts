@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { MediaCapture } from '@ionic-native/media-capture/ngx';
-import { Media } from '@ionic-native/media/ngx';
+import { MediaCapture, CaptureVideoOptions, MediaFile } from '@ionic-native/media-capture/ngx';
+import { Media, } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 const MEDIA_FILES_KEY = 'mediaFiles';
@@ -13,6 +13,7 @@ const MEDIA_FILES_KEY = 'mediaFiles';
 export class HomePage {
 
   @ViewChild('myVideo', { static: true }) myVideo: any;
+  mediaFiles = [];
   constructor(
     private mediaCapture: MediaCapture,
     private storage: Storage,
@@ -20,6 +21,27 @@ export class HomePage {
     private file: File,
   ) { }
 
+  ionViewDidLoad() {
+    this.storage.get('MEDIA_FILES_KEY').then(res => {
+      this.mediaFiles = JSON.parse(res) || [];
+    });
+  }
+
+  playFile(file) {
+
+  }
+
   recording() {
+    let options: CaptureVideoOptions = {
+      limit: 1,
+      duration: 30,
+    };
+    this.mediaCapture.captureVideo(options).then((res: MediaFile[]) => {
+      this.storeMediaFiles(res);
+    })
+  }
+
+  storeMediaFiles(files) {
+
   }
 }
