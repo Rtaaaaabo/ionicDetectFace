@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { VideoCapturePlus, VideoCapturePlusOptions, MediaFile } from '@ionic-native/video-capture-plus';
-import { IVideoOptions } from '../interfaces/video.interface';
+import { VideoCapturePlus, MediaFile } from '@ionic-native/video-capture-plus';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class VideoService {
     private videoCapturePlus: VideoCapturePlus,
   ) { }
 
-  captureVideo(options): Promise<any> {
+  captureVideo(options): Promise<MediaFile[]> {
     return this.videoCapturePlus.captureVideo(options);
   }
 
