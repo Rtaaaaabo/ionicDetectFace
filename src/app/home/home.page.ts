@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,9 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() { }
+  constructor(private videoService: VideoService) { }
 
   recording() {
-    console.log('Recording...');
+
   }
 }
