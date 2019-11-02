@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-// import { VideoService } from '../services/video.service';
-// import { VideoCapturePlusOptions } from '@ionic-native/video-capture-plus';
+import { Component, ViewChild } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { MediaCapture } from '@ionic-native/media-capture/ngx';
+import { Media } from '@ionic-native/media/ngx';
+import { File } from '@ionic-native/file/ngx';
 
+const MEDIA_FILES_KEY = 'mediaFiles';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,20 +12,14 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  @ViewChild('myVideo', { static: true }) myVideo: any;
   constructor(
-    // private videoService: VideoService
+    private mediaCapture: MediaCapture,
+    private storage: Storage,
+    private media: Media,
+    private file: File,
   ) { }
 
   recording() {
-    // const option: VideoCapturePlusOptions = {
-    //   limit: 1,
-    //   highquality: true,
-    //   portraitOverlay: 'assets/img/camera/overlay/portrait.png',
-    //   landscapeOverlay: 'assets/img/camera/overlay/landscape.png',
-    // };
-    // this.videoService.captureVideo(option).then(
-    //   (data) => console.log(data),
-    //   (error) => console.log('Something went wrong'),
-    // );
   }
 }
