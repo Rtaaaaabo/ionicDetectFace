@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { MediaCapture, CaptureVideoOptions, MediaFile } from '@ionic-native/media-capture/ngx';
-import { Media, } from '@ionic-native/media/ngx';
+import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 const MEDIA_FILES_KEY = 'mediaFiles';
@@ -28,17 +28,35 @@ export class HomePage {
   }
 
   playFile(file) {
-
+    if (file.name.indexOf('.wav')) {
+      const auditFile: MediaObject = this.media.create(file.localURL);
+      auditFile.play();
+    } else {
+      const video = this.myVideo.nativeElement;
+      video.src = this.myVideo.localURL;
+    }
   }
 
   recording() {
-    let options: CaptureVideoOptions = {
+    const options: CaptureVideoOptions = {
       limit: 1,
       duration: 30,
     };
     this.mediaCapture.captureVideo(options).then((res: MediaFile[]) => {
-      this.storeMediaFiles(res);
-    })
+      // this.storeMediaFiles(res);
+      const captureFile = res[0];
+      console.log('my file: ', captureFile);
+      const fileName = captureFile.name;
+      const dir = captureFile['localURL'].split('/');   // LOCAL Pathの設定をする
+      dir.pop();
+      const fromDirectory = dir.join('/');
+      const toDirectory = this.file.dataDirectory;
+
+      this.file.copyFile(fromDirectory, fileName, toDirectory, fileName).then(res => {
+        const url = res.nativeURL.replace(/^file:\/\//, '');
+        this.storeMediaFiles([{ name: fileName, size: captureFile.size, localURL: url }]);
+      });
+    });
   }
 
   storeMediaFiles(files) {
