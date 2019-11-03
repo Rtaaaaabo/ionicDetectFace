@@ -28,7 +28,7 @@ export class HomePage {
   }
 
   playFile(file) {
-    if (file.name.indexOf('.wav')) {
+    if (file.name.indexOf('.wav') > -1) {
       const auditFile: MediaObject = this.media.create(file.localURL);
       auditFile.play();
     } else {
@@ -60,6 +60,7 @@ export class HomePage {
   }
 
   storeMediaFiles(files) {
+    console.log('store: ', files);
     this.storage.get(MEDIA_FILES_KEY).then(res => {
       if (res) {
         let arr = JSON.parse(res);
