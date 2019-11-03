@@ -42,6 +42,15 @@ export class HomePage {
   }
 
   storeMediaFiles(files) {
-
+    this.storage.get(MEDIA_FILES_KEY).then(res => {
+      if (res) {
+        let arr = JSON.parse(res);
+        arr = arr.concat(files);
+        this.storage.set(MEDIA_FILES_KEY, JSON.stringify(arr));
+      } else {
+        this.storage.set(MEDIA_FILES_KEY, JSON.stringify(files));
+      }
+      this.mediaFiles = this.mediaFiles.concat(files);
+    });
   }
 }
