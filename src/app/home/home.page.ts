@@ -52,8 +52,8 @@ export class HomePage {
       const fromDirectory = dir.join('/');
       const toDirectory = this.file.dataDirectory;
 
-      this.file.copyFile(fromDirectory, fileName, toDirectory, fileName).then(res => {
-        const url = res.nativeURL.replace(/^file:\/\//, '');
+      this.file.copyFile(fromDirectory, fileName, toDirectory, fileName).then(response => {
+        const url = response.nativeURL.replace(/^file:\/\//, '');
         this.storeMediaFiles([{ name: fileName, size: captureFile.size, localURL: url }]);
       });
     });
